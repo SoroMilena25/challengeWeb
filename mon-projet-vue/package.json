@@ -1,7 +1,7 @@
 {
-  "name": "front-starnet",
-  "version": "0.0.0",
+  "name": "mon-projet-vue",
   "private": true,
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,7 +13,6 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
-    "vite": "^6.0.1",
-    "vite-plugin-vue-devtools": "^7.6.5"
+    "vite": "^6.0.1"
   }
 }
