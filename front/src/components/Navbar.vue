@@ -73,4 +73,14 @@ export default {
   cursor: pointer;
   
 }
+
+.logo {
+  width: 200px;
+  height: auto;
+}
+
+.logo {
+  width: 200px;
+  height: auto;
+}
 </style>
