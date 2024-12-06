@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <Home />
+    <nav>
+      <router-link to="/">Accueil</router-link>
+      <router-link to="/connexion">Connexion</router-link>
+    </nav>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Home from '@/views/Home.vue'; 
-
 export default {
   name: 'App',
-  components: {
-    Home
-  }
 };
 </script>
 
