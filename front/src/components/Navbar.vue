@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Réseau Social</a>
+      <img src="@/assets/logo1.png" alt="Logo" class="logo" />
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -34,5 +34,10 @@ export default {
 <style scoped>
 .navbar {
   margin-bottom: 20px;
+}
+
+.logo {
+  width: 200px;
+  height: auto;
 }
 </style>
