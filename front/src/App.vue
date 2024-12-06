@@ -6,6 +6,8 @@
 
 <script>
 import Home from '@/views/Home.vue'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 export default {
   name: 'App',
@@ -16,5 +18,8 @@ export default {
 </script>
 
 <style>
+#app {
+background-color: pink;
 
+}
 </style>
