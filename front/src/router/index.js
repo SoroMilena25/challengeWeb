@@ -4,7 +4,7 @@ import Connexion from '@/views/Connexion.vue';
 
 const routes = [
   { path: '/', name: 'Home', component: Home }, 
-  { path: '/about', name: 'Connexion', component: Connexion }, 
+  { path: '/connexion', name: 'Connexion', component: Connexion }
 ];
 
 const router = createRouter({
