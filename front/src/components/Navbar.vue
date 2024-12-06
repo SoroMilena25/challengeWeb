@@ -47,6 +47,7 @@ export default {
 <style scoped>
 .navbar {
   width: 100%; /* Assure que la navbar occupe toute la largeur de la page */
+  background-color:pink;
   position:relative; /* Fixe la navbar en haut de la page */
   top: 0;
   left: 0;
@@ -70,5 +71,6 @@ export default {
 .navbar .user-actions button {
   padding: 0.5rem 1rem;
   cursor: pointer;
+  
 }
 </style>

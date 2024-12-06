@@ -1,5 +1,5 @@
 <template>
-  <div class="body">
+  <div class="app-body">
     <div class="post-form">
       <textarea placeholder="Quoi de neuf ?"></textarea>
       <button>Publier</button>
@@ -41,28 +41,28 @@ export default {
 </script>
 
 <style scoped>
-body, html {
+html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   font-family: Arial, sans-serif;
 }
 
-.body {
+.app-body {
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* Prendre toute la hauteur de l'écran */
-  max-width: 100%;}
+}
 
 .post-form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   margin: 2rem;
-  background-color: #f9f9f9;
+  background-color: pink;
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
 }
 
 textarea {
@@ -75,7 +75,7 @@ textarea {
 }
 
 button {
-  background-color: #007bff;
+  background-color: #9f56ac;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -85,7 +85,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #733b84;
 }
 
 .posts {
@@ -99,7 +99,7 @@ button:hover {
 
 .post {
   padding: 1.5rem;
-  background-color: #fff;
+  background-color: pink;
   border-radius: 8px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
@@ -124,7 +124,22 @@ button:hover {
   margin-top: 1rem;
 }
 
-.post-actions button {
+.post-actions {
+  display: flex;
+  gap: 1rem;
   margin-top: 1rem;
+}
+
+.post-actions button {
+  padding: 0.5rem 1rem;
+  background-color: #9f56ac;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.post-actions button:hover {
+  background-color: #733b84;
 }
 </style>

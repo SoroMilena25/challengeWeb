@@ -13,7 +13,7 @@ export default {
 <style scoped>
 .footer {
   width: 100%;               /* Assure que le footer occupe toute la largeur de la page */
-  background-color: #333;    /* Couleur de fond du footer */
+  background-color: rgb(236, 112, 153);    /* Couleur de fond du footer */
   color: white;              /* Couleur du texte */
   text-align: center;        /* Centrer le texte */
   padding: 1rem;             /* Espacement interne */
