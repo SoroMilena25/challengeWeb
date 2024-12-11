@@ -1,16 +1,18 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top">
     <div class="container-fluid">
+      <!-- Logo -->
       <a class="navbar-brand" href="#">
         <img src="@/assets/logo1.png" alt="Logo" width="120" />
       </a>
 
-      
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <!-- Toggle button for mobile view -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      
+      <!-- Navbar links -->
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
@@ -22,22 +24,32 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Notifications</a>
           </li>
+          <!-- Remplacement du lien Messages par un bouton avec notification -->
           <li class="nav-item">
-            <a class="nav-link" href="#">Messages</a>
+
           </li>
         </ul>
       </div>
 
-      <div class="d-flex">
-        <button class="btn btn-outline-primary me-2">Profil</button>
+      <!-- Profil et déconnexion à droite -->
+      <div class="d-flex ms-auto">
+        <button button type="button" class="btn btn-outline-warning position-relative">
+    <img src="@/assets/msg.svg" alt="msg" />
+
+
+
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            99+
+            <span class="visually-hidden">message non lu</span>
+          </span>
+        </button>
         <button class="btn btn-outline-danger">Déconnexion</button>
+
       </div>
     </div>
   </nav>
 
-  
   <div class="banner-content">
-    
     <div class="banner">
       <h1>StarNet</h1>
       <p>Connectez-vous à l'univers de vos idées.</p>
@@ -52,20 +64,18 @@ export default {
 </script>
 
 <style scoped>
-
 .navbar {
   width: 100%;
-  background-color: #6a4c93; 
+  background-color: #6a4c93;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1050; 
-  transition: background-color 0.3s ease; 
+  z-index: 1050;
+  transition: background-color 0.3s ease;
 }
 
-
 .navbar:hover {
-  background-color: #5e3b77; 
+  background-color: #5e3b77;
 }
 
 .container-fluid {
@@ -77,35 +87,33 @@ export default {
   height: auto;
 }
 
-
 .navbar-nav .nav-item {
   margin-left: 1rem;
 }
 
 .nav-link {
-  color: #e23589; 
+  color: #e23589;
   font-weight: 500;
   text-transform: uppercase;
   font-size: 1rem;
-  transition: color 0.3s ease, transform 0.2s ease; 
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .nav-link:hover {
-  color: #ff0088; 
-  transform: translateY(-3px); 
+  color: #893998;
+  transform: translateY(-3px);
 }
-
 
 .d-flex button {
   padding: 0.6rem 1.5rem;
   font-size: 1rem;
   border-radius: 50px;
   font-weight: 600;
-  transition: background-color 0.3s, transform 0.2s ease; 
+  transition: background-color 0.3s, transform 0.2s ease;
 }
 
 .d-flex button:hover {
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
 
 .btn-outline-primary {
@@ -126,26 +134,36 @@ export default {
 }
 
 .btn-outline-danger:hover {
-  background-color: #893998;
-  color: white;
+  background-color: #d93376;
+  color: black;
+}
+.btn-outline-warning {
+  border: 2px solid #893998;
+  color: #893998;
+  background-color: transparent;
 }
 
+.btn-outline-warning:hover {
+  background-color: #d93376;
+  color: white;
+}
 @media (max-width: 992px) {
   .navbar-nav {
     text-align: center;
   }
+
   .navbar-nav .nav-item {
     margin-left: 0;
   }
+
   .d-flex {
     margin-top: 10px;
   }
 }
 
 .banner-content {
-  padding-top: 120px; 
+  padding-top: 120px;
 }
-
 
 .banner {
   background-color: #9f56ac;
@@ -161,4 +179,5 @@ export default {
 .banner p {
   font-size: 1.5rem;
 }
+
 </style>

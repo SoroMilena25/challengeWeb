@@ -1,40 +1,80 @@
 <template>
   <div class="app-body">
     
-
-    <!-- Liste des posts -->
-    <div class="posts">
-      <div class="post" v-for="(post, index) in posts" :key="index">
-        <!-- En-tête du post -->
-        <div class="post-header">
-          <img :src="post.user.avatar" alt="Avatar de {{ post.user.username }}" class="avatar" />
-          <span class="username">{{ post.user.username }}</span>
+    <!-- Conteneur Flexbox pour aligner la carte à gauche et les posts à droite -->
+    <div class="main-content">
+      <!-- Carte à gauche -->
+      <div class="left-side">
+        <div class="card" style="width: 18rem;">
+          <div class="text-profil">
+            <p><a href="#">Mon profil</a></p>
+          </div> 
+                   
+          <!-- Conteneur de l'avatar dans la carte -->
+          <div class="avatar-container">
+            <img src="@/assets/img_avatar.png" class="avatar-card" />
+          </div>          
+          <div class="card-body">
+            
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><div class="well">
+          <p><a href="#">Centre d'intérêt</a></p>
+          <p>
+            <span class="label label-default">Dessin</span>
+            <span class="label label-primary">Informatique</span>
+            <span class="label label-success">Crochet</span>
+            <span class="label label-info">Peinture</span>
+            <span class="label label-warning">Gaming</span>
+            <span class="label label-danger">Nourriture</span>
+          </p>
         </div>
-
-        <!-- Contenu du post -->
-        <p class="post-content">{{ post.content }}</p>
-
-        <!-- Actions du post -->
-        <div class="post-actions">
-          <button aria-label="Aimer">
-            <img src="@/assets/heart-fill.svg" alt="Aimer" />
-          </button>
-          <button aria-label="Aimer">
-            <img src="@/assets/chat.svg" alt="Commentaire" />
-          </button>
+</li>
+            <li class="list-group-item">
+       <div class="alert alert-primary alert-dismissible fade show" role="alert">
+  <strong>WOW!</strong><br> Quelqu'un a vue votre profile !
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div></li>
+          </ul>
         </div>
       </div>
+
+      <!-- Liste des posts à droite -->
+      <div class="right-side">
+        <div class="posts">
+          <div class="post" v-for="(post, index) in posts" :key="index">
+            <!-- En-tête du post -->
+            <div class="post-header">
+              <img :src="post.user.avatar" alt="Avatar de {{ post.user.username }}" class="avatar" />
+              <span class="username">{{ post.user.username }}</span>
+            </div>
+
+            <!-- Contenu du post -->
+            <p class="post-content">{{ post.content }}</p>
+
+            <!-- Actions du post -->
+            <div class="post-actions">
+              <button aria-label="Aimer">
+                <img src="@/assets/heart-fill.svg" alt="Aimer" />
+              </button>
+              <button aria-label="Aimer">
+                <img src="@/assets/chat.svg" alt="Commentaire" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bouton flottant pour publier un post -->
+        <BoutonFloat @open-modal="openModal" />
+
+        <!-- Modal pour créer un post -->
+        <Popup 
+          v-if="isModalVisible" 
+          @close="closeModal" 
+          @publish="publishPost"
+        />
+      </div>
     </div>
-
-    <!-- Bouton flottant pour publier un post -->
-    <BoutonFloat @open-modal="openModal" />
-
-    <!-- Modal pour créer un post -->
-    <Popup 
-      v-if="isModalVisible" 
-      @close="closeModal" 
-      @publish="publishPost"
-    />
   </div>
 </template>
 
@@ -103,33 +143,53 @@ body {
   background-color: #fafafa;
 }
 
-/* Style de la bannière */
-.banner {
-  background-color: #9f56ac;
-  color: white;
+/* Conteneur principal pour aligner la carte et le contenu des posts */
+.main-content {
+  display: flex;
   padding: 2rem;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  gap: 2rem;
 }
 
-.banner h1 {
-  margin: 0;
-  font-size: 2.5rem;
+.left-side {
+  flex: 0 0 20%; /* La carte prend 20% de la largeur */
 }
 
-.banner p {
-  font-size: 1.2rem;
-  margin-top: 0.5rem;
+.right-side {
+  flex-grow: 1; /* Le reste du contenu prend toute la largeur restante */
+}
+
+/* Styles de la carte */
+.card {
+  width: 100%; /* La carte prend toute la largeur de son conteneur */
+  margin-bottom: 2rem;
+}
+
+/* Conteneur de l'avatar dans la carte */
+.avatar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.text-profil {
+  display: flex;
+  justify-content: center;  /* Centrer horizontalement */
+  align-items: center;      /* Centrer verticalement */
+  margin-top: 1rem;         /* Espacement au-dessus du texte */
+  font-size: 1.5rem;        /* Taille du texte */
+  font-weight: bold;        /* Mettre le texte en gras */
+}
+.avatar-card {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 /* Liste des posts */
 .posts {
-  flex-grow: 1;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  overflow-y: auto;
 }
 
 .post {
@@ -148,7 +208,6 @@ body {
 .post-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
 }
 
 .avatar {
@@ -188,4 +247,51 @@ body {
   background-color: #733b84;
   transform: scale(1.05);
 }
+/* Style pour la section "Interests" */
+.well {
+  background-color: #f7f7f7;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.well p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.well .label {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0.25rem;
+  border-radius: 15px;
+  color: white;
+  font-size: 0.85rem;
+}
+
+.well .label-default {
+  background-color: #999;
+}
+
+.well .label-primary {
+  background-color: #337ab7;
+}
+
+.well .label-success {
+  background-color: #5cb85c;
+}
+
+.well .label-info {
+  background-color: #5bc0de;
+}
+
+.well .label-warning {
+  background-color: #f0ad4e;
+}
+
+.well .label-danger {
+  background-color: #d9534f;
+}
+
 </style>
