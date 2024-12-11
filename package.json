@@ -20,11 +20,6 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-<<<<<<< Updated upstream
         "vue-router": "^4.5.0"
-=======
-        "boostrap": "^2.0.0",
-        "bootstrap": "^5.3.3"
->>>>>>> Stashed changes
     }
 }

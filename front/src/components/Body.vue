@@ -26,10 +26,8 @@
       </div>
     </div>
 
-    <!-- Bouton flottant pour publier un post -->
     <BoutonFloat @open-modal="openModal" />
 
-    <!-- Modal pour créer un post -->
     <Popup 
       v-if="isModalVisible" 
       @close="closeModal" 
@@ -52,19 +50,18 @@ export default {
     return {
       posts: [
         {
-          user: { avatar: 'https://via.placeholder.com/40', username: 'Alice' },
-          content: 'Ceci est un post.',
+          user: { avatar: 'https://via.placeholder.com/40', username: 'Ichigo' },
+          content: "trop bien le film",
         },
         {
-          user: { avatar: 'https://via.placeholder.com/40', username: 'Bob' },
-          content: 'Voici un autre post.',
+          user: { avatar: 'https://via.placeholder.com/40', username: 'KK_du_94' },
+          content: 'Trop bien Arcane.',
         },
       ],
-      isModalVisible: false, // Contrôle l'affichage du modal
+      isModalVisible: false,
     };
   },
   methods: {
-    // Ouvre le modal
     openModal() {
       this.isModalVisible = true;
     },
@@ -80,10 +77,12 @@ export default {
           content: content,
         });
       }
-      this.closeModal(); // Ferme le modal après publication
+      this.closeModal(); 
+      
     },
   },
 };
+
 </script>
 
 <style scoped>
