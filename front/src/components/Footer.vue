@@ -12,19 +12,18 @@ export default {
 
 <style scoped>
 .footer {
-  width: 100%;               /* Assure que le footer occupe toute la largeur de la page */
-  background-color: rgb(236, 112, 153);    /* Couleur de fond du footer */
-  color: white;              /* Couleur du texte */
-  text-align: center;        /* Centrer le texte */
-  padding: 1rem;             /* Espacement interne */
-  position: fixed;           /* Fixer le footer en bas de la page */
-  bottom: 0;                 /* Positionner le footer au bas */
-  left: 0;                   /* Assurer que le footer commence depuis le bord gauche */
-  z-index: 1000;             /* Placer le footer par-dessus les autres éléments si nécessaire */
-}
+  width: 100%;               
+  background-color: rgb(236, 112, 153);   
+  color: white;             
+  text-align: center;        
+  padding: 1rem;            
+  position: fixed;           
+  bottom: 0;                 
+  left: 0;                   
+  z-index: 1000; 
+}           
 
 body {
-  margin-bottom: 60px; /* Espacer le bas de la page pour éviter que le contenu ne soit masqué par le footer */
-
+  margin-bottom: 60px; 
 }
 </style>

@@ -1,17 +1,14 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
     <div class="container-fluid">
-      <!-- Logo -->
       <a class="navbar-brand" href="#">
         <img src="@/assets/logo1.png" alt="Logo" width="120" />
       </a>
 
-      <!-- Toggle button for mobile view -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <!-- Navbar links -->
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
@@ -29,7 +26,6 @@
         </ul>
       </div>
 
-      <!-- User actions -->
       <div class="d-flex">
         <button class="btn btn-primary me-2">Profil</button>
         <button class="btn btn-danger">Déconnexion</button>
@@ -46,12 +42,12 @@ export default {
 
 <style scoped>
 .navbar {
-  width: 100%; /* Assure que la navbar occupe toute la largeur de la page */
+  width: 100%; 
   background-color:pink;
-  position:relative; /* Fixe la navbar en haut de la page */
+  position:relative; 
   top: 0;
   left: 0;
-  z-index: 1000; /* Assure que la navbar reste au-dessus du contenu */
+  z-index: 1000; 
 }
 
 .container-fluid {

@@ -51,7 +51,7 @@ html, body {
 .app-body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Prendre toute la hauteur de l'écran */
+  min-height: 100vh; 
 }
 
 .post-form {
@@ -89,12 +89,12 @@ button:hover {
 }
 
 .posts {
-  flex-grow: 1; /* Prendre tout l'espace restant */
+  flex-grow: 1; 
   padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  overflow-y: auto; /* Permettre le défilement si nécessaire */
+  overflow-y: auto; 
 }
 
 .post {
