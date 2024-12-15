@@ -12,11 +12,12 @@
           <input type="email" id="email" v-model="email" placeholder="Entrez votre email" required />
         </div>
         <div class="form-group">
-          <label for="password">Mot de passe</label>
-          <input type="password" id="password" v-model="password" placeholder="Entrez votre mot de passe" required />
+          <label for="mdp">Mot de passe</label>
+          <input type="password" id="mdp" v-model="mdp" placeholder="Entrez votre mot de passe" required />
         </div>
         <button type="submit">Se connecter</button>
       </form>
+      <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
     </div>
   </div>
 </template>
@@ -27,19 +28,42 @@ export default {
   data() {
     return {
       email: '',
-      password: '',
+      mdp: '',
+      errorMessage: '',
     };
   },
   methods: {
-    handleLogin() {
-      console.log('Email:', this.email, 'Password:', this.password);
+    async handleLogin() {
+      try {
+        const response = await fetch('http://localhost:3000/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: this.email,
+            mdp: this.mdp,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert('Connexion réussie !');
+          localStorage.setItem('token', data.token);
+          this.$router.push('/dashboard');
+        } else {
+          this.errorMessage = data.message || 'Erreur lors de la connexion.';
+        }
+      } catch (error) {
+        this.errorMessage = 'Une erreur est survenue. Veuillez réessayer plus tard.';
+      }
     },
   },
 };
 </script>
 
 <style scoped>
-
 .form-connexion {
   display: flex;
   height: 98vh;
@@ -103,5 +127,11 @@ button {
 
 button:hover {
   background-color: #fd89ce;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
 }
 </style>

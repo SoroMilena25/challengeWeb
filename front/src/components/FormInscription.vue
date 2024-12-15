@@ -1,22 +1,124 @@
 <template>
-    <form>
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-</template>
-<script>
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-</script>
+    <div class="form-connexion">
+      <div class="left-section">
+        <img src="@/assets/logo1.png" alt="Logo" class="logo" />
+      </div>
+  
+      <div class="right-section">
+        <h2>Inscription</h2>
+        <form @submit.prevent="handleLogin">
+            <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="nom" id="nom" v-model="nom" placeholder="Entrez votre nom" required />
+          </div>
+          <div class="form-group">
+            <label for="prenom">Prénom</label>
+            <input type="prenom" id="prenom" v-model="email" placeholder="Entrez votre prénom" required />
+          </div>
+          <div class="form-group">
+            <label for="pseudo">Pseudo</label>
+            <input type="pseudo" id="pseudo" v-model="email" placeholder="Entrez un pseudo" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" v-model="email" placeholder="Entrez votre email" required />
+          </div>
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" v-model="password" placeholder="Entrez votre mot de passe" required />
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirmer le mot de passe</label>
+            <input type="confirmPassword" id="confirmPassword" v-model="password" placeholder="Entrez de nouveau votre mot de passe" required />
+          </div>
+          <button type="submit">Se connecter</button>
+        </form>
+      </div>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    name: 'FormConnexion',
+    data() {
+      return {
+        email: '',
+        password: '',
+      };
+    },
+    methods: {
+      handleLogin() {
+        console.log('Email:', this.email, 'Password:', this.password);
+      },
+    },
+  };
+  </script>
+  
+  <style scoped>
+  
+  .form-connexion {
+    display: flex;
+    height: 98vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  .left-section {
+    flex: 1;
+    background-color: pink;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 400px;
+    height: auto;
+  }
+  
+  .right-section {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white; 
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    background-color: #fb5abc;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  </style>
+  
