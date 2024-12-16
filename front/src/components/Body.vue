@@ -7,12 +7,12 @@
       <div class="left-side">
         <div class="card" style="width: 18rem;">
           <div class="text-profil">
-            <p><a href="#">Mon profil</a></p>
+            <p><router-link to="/profil">Mon profil</router-link></p>
           </div> 
                    
           <!-- Conteneur de l'avatar dans la carte -->
           <div class="avatar-container">
-            <img src="@/assets/img_avatar.png" class="avatar-card" />
+            <img src="@/assets/meuf.jpg" class="avatar-card" />
           </div>          
           <div class="card-body">
             

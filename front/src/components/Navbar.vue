@@ -20,7 +20,7 @@
             <a class="nav-link" href="#">Explorer</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Notifications</a>
+            <a class="nav-link" href="#">Profil</a>
           </li>
           <!-- Remplacement du lien Messages par un bouton avec notification -->
           <li class="nav-item">
@@ -31,9 +31,33 @@
 
       <!-- User actions -->
       <div class="d-flex">
-        <a href="http://localhost:5173/profil"><button class="btn btn-primary me-2">Profil</button></a>
-        <button class="btn btn-danger">Déconnexion</button>
-      </div>
+  <!-- Lien vers la page Profil avec Vue Router -->
+  <button type="button" class="btn btn-primary position-relative me-3">
+    Messages
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+      99+
+      <span class="visually-hidden">message pas lu</span>
+    </span>
+  </button>
+
+ <!-- Bouton Connexion avec redirection via router-link -->
+ <router-link 
+      v-if="!isLoggedIn" 
+      to="/connexion" 
+      class="me-2">
+      <button class="btn btn-purple">
+        Connexion
+      </button>
+    </router-link>
+
+    <!-- Bouton Déconnexion -->
+    <button v-if="isLoggedIn" class="btn btn-danger me-2" @click="toggleConnexion">
+      Déconnexion
+    </button>
+  <!-- Nouveau bouton Inbox avec badge -->
+  
+</div>
+
     </div>
   </nav>
 
@@ -48,6 +72,18 @@
 <script>
 export default {
   name: 'Navbar',
+  data() {
+    return {
+      // Variable pour savoir si l'utilisateur est connecté ou non
+      isLoggedIn: false,
+    };
+  },
+  methods: {
+    // Fonction pour alterner l'état entre connecté et déconnecté
+    toggleConnexion() {
+      this.isLoggedIn = !this.isLoggedIn;
+    },
+  },
 };
 </script>
 
@@ -60,7 +96,18 @@ export default {
   left: 0;
   z-index: 1000; /* Assure que la navbar reste au-dessus du contenu */
 }
+/* Ajout de la classe pour le bouton violet */
+.btn-purple {
+  background-color: #d32e89; /* violet */
+  color: white;
+  border: none;
+}
+.btn-danger {
+  background-color: rgb(221, 49, 49); /* violet */
+  color: white;
+  border: none;
 
+}
 .container-fluid {
   width: 100%;
   margin-top: 10px;

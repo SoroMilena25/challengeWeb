@@ -1,26 +1,41 @@
 <template>
   <div class="form-connexion">
-    <div class="left-section">
-      <img src="@/assets/logo1.png" alt="Logo" class="logo" />
+    <!-- Conteneur pour la section du logo -->
+    <div class="logo-section">
+      <div class="logo-container">
+        <img src="@/assets/logo1.png" alt="Logo" class="logo" />
+      </div>
     </div>
+    <!-- Conteneur pour la section de connexion -->
+    <div class="connexion-section">
+      <div class="container">
+        <h2>Connexion</h2>
+        <form @submit.prevent="handleLogin">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" v-model="email" placeholder="Entrez votre email" required />
+          </div>
+          <div class="form-group">
+            <label for="mdp">Mot de passe</label>
+            <input type="password" id="mdp" v-model="mdp" placeholder="Entrez votre mot de passe" required />
+          </div>
+          <div class="button-container">
+    <button type="submit">Se connecter</button>
 
-    <div class="right-section">
-      <h2>Connexion</h2>
-      <form @submit.prevent="handleLogin">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" v-model="email" placeholder="Entrez votre email" required />
-        </div>
-        <div class="form-group">
-          <label for="mdp">Mot de passe</label>
-          <input type="password" id="mdp" v-model="mdp" placeholder="Entrez votre mot de passe" required />
-        </div>
-        <button type="submit">Se connecter</button>
-      </form>
-      <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+    <router-link to="/inscription">
+      <button class="btn btn-success">Inscription</button>
+    </router-link>
+  </div>
+        </form>
+
+        
+
+        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+      </div>
     </div>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -66,30 +81,44 @@ export default {
 <style scoped>
 .form-connexion {
   display: flex;
+  flex-wrap: wrap;
   height: 98vh;
   font-family: Arial, sans-serif;
 }
 
-.left-section {
+.form-connexion {
+  display: flex;
+  height: 100vh;
+}
+
+/* Conteneur pour la section gauche (logo) */
+.logo-section {
   flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: pink;
+}
+
+.logo-container {
+  max-width: 80%; /* Limite la largeur du conteneur du logo */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .logo {
-  width: 400px;
+  width: 250px; /* Ajuste la taille du logo */
   height: auto;
 }
 
-.right-section {
+.connexion-section {
   flex: 1;
   padding: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: white; 
+  background-color: white;
 }
 
 h2 {
@@ -107,7 +136,9 @@ label {
   font-weight: bold;
   color: #555;
 }
-
+button + button {
+  margin-top: 10px; /* Espacement entre les deux boutons */
+}
 input {
   width: 100%;
   padding: 10px;
@@ -115,15 +146,25 @@ input {
   border-radius: 5px;
 }
 
+.button-container {
+  display: flex;
+  justify-content: space-between; /* Espacement égal entre les boutons */
+  gap: 10px; /* Espace entre les boutons */
+  margin-top: 20px; /* Espacement entre les boutons et le reste du formulaire */
+}
+
+/* Style pour les boutons */
 button {
   background-color: #fb5abc;
   color: white;
-  padding: 10px 15px;
+  padding: 10px 150px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  flex-grow: 1; /* Permet aux boutons de prendre toute la largeur disponible */
 }
+
 
 button:hover {
   background-color: #fd89ce;
@@ -133,5 +174,52 @@ button:hover {
   color: red;
   margin-top: 10px;
   font-size: 14px;
+}
+
+/* Media Queries pour rendre l'affichage responsive */
+@media (max-width: 1200px) {
+  .logo {
+    width: 300px;
+  }
+  .form-connexion {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo {
+    width: 200px;
+  }
+  .form-connexion {
+    flex-direction: column;
+    height: auto;
+  }
+  .left-section, .right-section {
+    flex: none;
+    width: 100%;
+  }
+  .right-section {
+    padding: 20px;
+  }
+  button {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-connexion {
+    padding: 10px;
+  }
+  .right-section {
+    padding: 15px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+  input, button {
+    font-size: 14px;
+    padding: 8px;
+  }
 }
 </style>
