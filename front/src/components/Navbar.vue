@@ -16,9 +16,7 @@
           <li class="nav-item">
             <a class="nav-link" href="http://localhost:5173">Accueil</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Explorer</a>
-          </li>
+          
           <li class="nav-item">
             <a class="nav-link" href="#">Profil</a>
           </li>
@@ -33,7 +31,7 @@
       <div class="d-flex">
   <!-- Lien vers la page Profil avec Vue Router -->
   <button type="button" class="btn btn-primary position-relative me-3">
-    Messages
+    <img src="@/assets/send.svg" alt="Send" />
     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
       99+
       <span class="visually-hidden">message pas lu</span>

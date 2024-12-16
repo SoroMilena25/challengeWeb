@@ -1,5 +1,5 @@
 <template>
-    <button class="floating-button" @click="handleClick">+</button>
+    <button class="floating-button" @click="handleClick">+ </button>
   </template>
   
   <script>
