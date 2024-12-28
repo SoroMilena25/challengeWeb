@@ -1,4 +1,8 @@
-# Rediriger la racine vers la page d'accueil avec Twig
-index:
-    path: /
-    controller: App\Controller\HomeController::index
+# config/routes.yaml
+
+# Route pour rediriger toutes les URL vers Vue.js
+app_vue:
+    path: /{vueRouting}
+    controller: App\Controller\AppController::index
+    requirements:
+        vueRouting: .*
