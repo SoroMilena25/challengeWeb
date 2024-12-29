@@ -34,7 +34,7 @@ export default {
   },
   data() {
     return {
-      showModal: false, // État pour gérer l'affichage du modal
+      showModal: false, 
       posts: [],
     };
   }
