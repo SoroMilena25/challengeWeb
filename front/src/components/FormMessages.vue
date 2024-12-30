@@ -143,7 +143,7 @@ export default {
 }
 
 .sent-text {
-  background-color: #a9f5d0;
+  background-color: #f5a9ea;
   color: #2a4d2f;
 }
 
