@@ -167,7 +167,7 @@ export default {
       const post = this.posts[index];
       if (post.newComment.trim()) {
         post.comments.push({
-          username: 'You', // Nom de l'utilisateur qui publie le commentaire
+          username: 'Moi', // Nom de l'utilisateur qui publie le commentaire
           text: post.newComment
         });
         post.newComment = ''; // Réinitialiser le champ de texte

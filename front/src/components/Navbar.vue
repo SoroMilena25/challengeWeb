@@ -16,9 +16,9 @@
           <li class="nav-item">
             <a class="nav-link" href="http://localhost:5173">Accueil</a>
           </li>
-          
+
           <li class="nav-item">
-            <a class="nav-link" href="#">Profil</a>
+            <router-link to="/profil" class="nav-link">Profil</router-link>
           </li>
           <!-- Remplacement du lien Messages par un bouton avec notification -->
           <li class="nav-item">
@@ -29,34 +29,31 @@
 
       <!-- User actions -->
       <div class="d-flex">
-  <!-- Lien vers la page Profil avec Vue Router -->
-  <router-link to="/Messages">
-      <button type="button" class="btn btn-primary position-relative me-3">
-        <img src="@/assets/send.svg" alt="Envoyer" />
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-          99+
-          <span class="visually-hidden">message pas lu</span>
-        </span>
-      </button>
-    </router-link>
+        <!-- Lien vers la page Profil avec Vue Router -->
+        <router-link to="/Messages">
+          <button type="button" class="btn btn-primary position-relative me-3">
+            <img src="@/assets/send.svg" alt="Envoyer" />
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              99+
+              <span class="visually-hidden">message pas lu</span>
+            </span>
+          </button>
+        </router-link>
 
- <!-- Bouton Connexion avec redirection via router-link -->
- <router-link 
-      v-if="!isLoggedIn" 
-      to="/connexion" 
-      class="me-2">
-      <button class="btn btn-purple">
-        Connexion
-      </button>
-    </router-link>
+        <!-- Bouton Connexion avec redirection via router-link -->
+        <router-link v-if="!isLoggedIn" to="/connexion" class="me-2">
+          <button class="btn btn-purple">
+            Connexion
+          </button>
+        </router-link>
 
-    <!-- Bouton Déconnexion -->
-    <button v-if="isLoggedIn" class="btn btn-danger me-2" @click="toggleConnexion">
-      Déconnexion
-    </button>
-  <!-- Nouveau bouton Inbox avec badge -->
-  
-</div>
+        <!-- Bouton Déconnexion -->
+        <button v-if="isLoggedIn" class="btn btn-danger me-2" @click="toggleConnexion">
+          Déconnexion
+        </button>
+        <!-- Nouveau bouton Inbox avec badge -->
+
+      </div>
 
     </div>
   </nav>
@@ -82,25 +79,33 @@ export default {
 
 <style scoped>
 .navbar {
-  width: 100%; /* Assure que la navbar occupe toute la largeur de la page */
-  background-color:pink;
-  position:relative; /* Fixe la navbar en haut de la page */
+  width: 100%;
+  /* Assure que la navbar occupe toute la largeur de la page */
+  background-color: pink;
+  position: relative;
+  /* Fixe la navbar en haut de la page */
   top: 0;
   left: 0;
-  z-index: 1000; /* Assure que la navbar reste au-dessus du contenu */
+  z-index: 1000;
+  /* Assure que la navbar reste au-dessus du contenu */
 }
+
 /* Ajout de la classe pour le bouton violet */
 .btn-purple {
-  background-color: #d32e89; /* violet */
+  background-color: #d32e89;
+  /* violet */
   color: white;
   border: none;
 }
+
 .btn-danger {
-  background-color: rgb(221, 49, 49); /* violet */
+  background-color: rgb(221, 49, 49);
+  /* violet */
   color: white;
   border: none;
 
 }
+
 .container-fluid {
   width: 100%;
   margin-top: 10px;
@@ -161,6 +166,7 @@ export default {
   background-color: #d93376;
   color: black;
 }
+
 .btn-outline-warning {
   border: 2px solid #893998;
   color: #893998;
@@ -171,6 +177,7 @@ export default {
   background-color: #d93376;
   color: white;
 }
+
 @media (max-width: 992px) {
   .navbar-nav {
     text-align: center;
@@ -184,6 +191,4 @@ export default {
     margin-top: 10px;
   }
 }
-
-
 </style>
