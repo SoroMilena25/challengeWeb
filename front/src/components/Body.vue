@@ -1,5 +1,11 @@
 <template>
   <div class="app-body">
+    <div class="banner-content">
+    <div class="banner">
+      <h1>StarNet</h1>
+      <p>Connectez-vous à l'univers de vos idées.</p>
+    </div>
+  </div>
     
     <!-- Conteneur Flexbox pour aligner la carte à gauche et les posts à droite -->
     <div class="main-content">
@@ -243,6 +249,20 @@ button:hover {
 .card {
   width: 100%; /* La carte prend toute la largeur de son conteneur */
   margin-bottom: 2rem;
+}
+.banner {
+  background-color: #9f56ac;
+  color: white;
+  text-align: center;
+  padding: 50px;
+}
+
+.banner h1 {
+  font-size: 3rem;
+}
+
+.banner p {
+  font-size: 1.5rem;
 }
 
 /* Conteneur de l'avatar dans la carte */

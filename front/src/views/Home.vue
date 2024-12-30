@@ -31,8 +31,8 @@ export default {
     Body,
     Footer,
     Popup,
-    BoutonFloat,
-  },
+    BoutonFloat  },
+    
   data() {
     return {
       showModal: false, // État pour gérer l'affichage du modal

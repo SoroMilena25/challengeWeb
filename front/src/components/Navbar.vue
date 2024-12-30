@@ -30,13 +30,15 @@
       <!-- User actions -->
       <div class="d-flex">
   <!-- Lien vers la page Profil avec Vue Router -->
-  <button type="button" class="btn btn-primary position-relative me-3">
-    <img src="@/assets/send.svg" alt="Send" />
-    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-      99+
-      <span class="visually-hidden">message pas lu</span>
-    </span>
-  </button>
+  <router-link to="/Messages">
+      <button type="button" class="btn btn-primary position-relative me-3">
+        <img src="@/assets/send.svg" alt="Envoyer" />
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          99+
+          <span class="visually-hidden">message pas lu</span>
+        </span>
+      </button>
+    </router-link>
 
  <!-- Bouton Connexion avec redirection via router-link -->
  <router-link 
@@ -58,13 +60,6 @@
 
     </div>
   </nav>
-
-  <div class="banner-content">
-    <div class="banner">
-      <h1>StarNet</h1>
-      <p>Connectez-vous à l'univers de vos idées.</p>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -190,19 +185,5 @@ export default {
   }
 }
 
-.banner {
-  background-color: #9f56ac;
-  color: white;
-  text-align: center;
-  padding: 50px;
-}
-
-.banner h1 {
-  font-size: 3rem;
-}
-
-.banner p {
-  font-size: 1.5rem;
-}
 
 </style>
