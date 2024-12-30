@@ -18,23 +18,25 @@
             
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item"><div class="well">
-          <p>Centre d'intérêt</p>
-          <p>
-            <span class="label label-default">Dessin</span>
-            <span class="label label-primary">Informatique</span>
-            <span class="label label-success">Crochet</span>
-            <span class="label label-info">Peinture</span>
-            <span class="label label-warning">Gaming</span>
-            <span class="label label-danger">Nourriture</span>
-          </p>
-        </div>
-</li>
             <li class="list-group-item">
-       <div class="alert alert-primary alert-dismissible fade show" role="alert">
-  <strong>WOW!</strong><br> Quelqu'un a vue votre profile !
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div></li>
+              <div class="well">
+                <p>Centre d'intérêt</p>
+                <p>
+                  <span class="label label-default">Dessin</span>
+                  <span class="label label-primary">Informatique</span>
+                  <span class="label label-success">Crochet</span>
+                  <span class="label label-info">Peinture</span>
+                  <span class="label label-warning">Gaming</span>
+                  <span class="label label-danger">Nourriture</span>
+                </p>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <strong>WOW!</strong><br> Quelqu'un a vu votre profil !
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
@@ -57,10 +59,26 @@
               <button aria-label="Aimer">
                 <img src="@/assets/heart-fill.svg" alt="Aimer" />
               </button>
-              <button aria-label="Aimer">
+
+              <!-- Bouton pour afficher la section des commentaires -->
+              <button aria-label="Commentaire" @click="toggleCommentSection(index)">
                 <img src="@/assets/chat.svg" alt="Commentaire" />
               </button>
             </div>
+
+            <!-- Section pour ajouter des commentaires -->
+            <div v-if="post.showCommentSection">
+              <textarea v-model="post.newComment" placeholder="Écrire un commentaire..."></textarea>
+              <button @click="addComment(index)">Publier</button>
+
+              <!-- Affichage des commentaires -->
+              <div v-if="post.comments.length">
+                <div v-for="(comment, commentIndex) in post.comments" :key="commentIndex" class="comment">
+                  <span><strong>{{ comment.username }}</strong>: {{ comment.text }}</span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -78,6 +96,9 @@
   </div>
 </template>
 
+
+
+
 <script>
 import BoutonFloat from "@/components/BoutonFloat.vue";
 import Popup from "@/components/Popup.vue";
@@ -94,10 +115,16 @@ export default {
         {
           user: { avatar: 'https://via.placeholder.com/40', username: 'Alice' },
           content: 'Ceci est un post.',
+          showCommentSection: false,
+          newComment: '',
+          comments: []
         },
         {
           user: { avatar: 'https://via.placeholder.com/40', username: 'Bob' },
           content: 'Voici un autre post.',
+          showCommentSection: false,
+          newComment: '',
+          comments: []
         },
       ],
       isModalVisible: false, // Contrôle l'affichage du modal
@@ -118,11 +145,30 @@ export default {
         this.posts.unshift({
           user: { avatar: 'https://via.placeholder.com/40', username: 'You' },
           content: content,
+          showCommentSection: false,
+          newComment: '',
+          comments: []
         });
       }
       this.closeModal(); // Ferme le modal après publication
     },
-  },
+    // Affiche ou masque la section de commentaires
+    toggleCommentSection(index) {
+      this.posts[index].showCommentSection = !this.posts[index].showCommentSection;
+    },
+    // Ajoute un commentaire à un post
+    addComment(index) {
+      const post = this.posts[index];
+      if (post.newComment.trim()) {
+        post.comments.push({
+          username: 'You', // Nom de l'utilisateur qui publie le commentaire
+          text: post.newComment
+        });
+        post.newComment = ''; // Réinitialiser le champ de texte
+        post.showCommentSection = false; // Masquer la section de commentaires après publication
+      }
+    }
+  }
 };
 </script>
 
@@ -141,6 +187,41 @@ body {
   flex-direction: column;
   min-height: 100vh;
   background-color: #fafafa;
+}
+.comment {
+  background-color: #f1f1f1;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border-radius: 8px;
+}
+
+textarea {
+  width: 100%;
+  height: 80px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: #9f56ac;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #733b84;
+}
+
+.post-actions button {
+  background-color: #9f56ac;
+  border-radius: 5px;
+  color: white;
+  padding: 0.5rem 1rem;
 }
 
 /* Conteneur principal pour aligner la carte et le contenu des posts */
