@@ -1,9 +1,10 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="http://localhost:5173">
-        <img src="@/assets/logo1.png" alt="Logo" width="120" />
-      </a>
+
+      <router-link to="/" class="navbar-brand">
+          <img src="@/assets/logo1.png" alt="Logo" width="120" />
+      </router-link>
 
       <!-- Toggle button for mobile view -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -13,8 +14,9 @@
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
+
           <li class="nav-item">
-            <a class="nav-link" href="http://localhost:5173">Accueil</a>
+            <router-link to="/" class="nav-link">Accueil</router-link>
           </li>
 
           <li class="nav-item">

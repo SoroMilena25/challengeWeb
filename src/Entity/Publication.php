@@ -8,42 +8,54 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['publication:read']],
+    denormalizationContext: ['groups' => ['publication:write']]
+)]
 class Publication
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['publication:read', 'publication:write'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['publication:read', 'publication:write'])]
     private ?string $img = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['publication:read', 'publication:write'])]
     private ?string $img2 = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups(['publication:read', 'publication:write'])]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['publication:read', 'publication:write'])]
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'publications')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['publication:read', 'publication:write'])]
     private ?User $createur = null;
 
     /**
      * @var Collection<int, Aimer>
      */
     #[ORM\OneToMany(targetEntity: Aimer::class, mappedBy: 'publicationID', orphanRemoval: true)]
+    #[Groups(['publication:read', 'publication:write'])]
     private Collection $aimes;
 
     /**
      * @var Collection<int, Commenter>
      */
     #[ORM\OneToMany(targetEntity: Commenter::class, mappedBy: 'publicationID', orphanRemoval: true)]
+    #[Groups(['publication:read', 'publication:write'])]
     private Collection $commentaires;
 
     public function __construct()

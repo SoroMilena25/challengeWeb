@@ -8,7 +8,7 @@
 
 <script>
 import FormMessages from "@/components/FormMessages.vue"
-import Navbar from "../components/Navbar.vue";
+import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
 
 export default {

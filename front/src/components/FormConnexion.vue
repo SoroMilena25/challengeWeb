@@ -9,8 +9,8 @@
     <!-- Conteneur pour la section de connexion -->
     <div class="connexion-section">
       <div class="container">
-        <h2>Connexion</h2>
-        <form @submit.prevent="handleLogin">
+        <h2 v-if="!isLoggedIn">Connexion</h2>
+        <form v-if="!isLoggedIn" @submit.prevent="handleLogin">
           <!-- Email -->
           <div class="form-group">
             <label for="email">Email</label>
@@ -39,6 +39,8 @@
           </div>
         </form>
 
+        <p v-if="isLoggedIn" class="success">{{ successMessage }}</p>
+
         <!-- Lien vers l'inscription -->
         <p>Pas encore de compte ? <router-link to="/inscription">Inscrivez-vous</router-link></p>
 
@@ -51,19 +53,59 @@
 
 
 <script>
+import axios from 'axios';
+
   export default {
     name: 'FormConnexion',
     data() {
-      return {
-        email: '',
-        password: '',
-      };
-    },
+    return {
+      email: '',
+      password: '',
+      errorMessage: '', // Message d'erreur si la connexion échoue
+      successMessage: '', // Message de succès
+      isLoggedIn: false, // Nouvelle variable pour suivre l'état de la connexion
+    };
+  },
     methods: {
-      handleLogin() {
-        console.log('Email:', this.email, 'Password:', this.password);
-      },
-    },
+      async handleLogin() {
+      const credentials = {
+        email: this.email,
+        password: this.password,
+      };
+
+      try {
+        // Requête vers l'API backend
+        const response = await fetch('http://localhost:8000/connexion', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(credentials),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          this.errorMessage = errorData.message || "Erreur lors de la connexion.";
+          return;
+        }
+
+        const data = await response.json();
+
+        // Connexion réussie
+        this.errorMessage = '';
+        this.successMessage = 'Connexion réussie, redirection en cours...';
+
+        // Stocker les données utilisateur dans la session
+        sessionStorage.setItem('user', JSON.stringify(data.user));
+
+        // Redirection
+        setTimeout(() => {
+          this.$router.push('/');
+        }, 3000);
+      } catch (error) {
+        console.error('Erreur lors de la connexion:', error);
+        this.errorMessage = "Erreur réseau. Veuillez réessayer.";
+      }
+    }
+  }
   };
   </script>
 

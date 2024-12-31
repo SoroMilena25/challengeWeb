@@ -7,60 +7,81 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity]
 #[ORM\Table(name: '`user`')]
-#[ApiResource]
-class User
+#[ApiResource(
+    normalizationContext: ['groups' => ['user:read']],
+    denormalizationContext: ['groups' => ['user:write']]
+)]
+class User implements PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['user:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user:read', 'user:write'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user:read', 'user:write'])]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user:read', 'user:write'])]
     private ?string $pseudo = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user:read', 'user:write'])]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user:write'])]
     private ?string $mdp = null;
+
+    public function getPassword(): ?string
+    {
+        return $this->mdp;
+    }
 
     /**
      * @var Collection<int, Publication>
      */
     #[ORM\OneToMany(targetEntity: Publication::class, mappedBy: 'createur', orphanRemoval: true)]
+    #[Groups(['user:read', 'user:write'])]
     private Collection $publications;
 
     /**
      * @var Collection<int, Aimer>
      */
     #[ORM\OneToMany(targetEntity: Aimer::class, mappedBy: 'userID', orphanRemoval: true)]
+    #[Groups(['user:read', 'user:write'])]
     private Collection $aimes;
 
     /**
      * @var Collection<int, Commenter>
      */
     #[ORM\OneToMany(targetEntity: Commenter::class, mappedBy: 'userID', orphanRemoval: true)]
+    #[Groups(['user:read', 'user:write'])]
     private Collection $commentaires;
 
     /**
      * @var Collection<int, Relation>
      */
     #[ORM\OneToMany(targetEntity: Relation::class, mappedBy: 'abonne', orphanRemoval: true)]
+    #[Groups(['user:read', 'user:write'])]
     private Collection $abonnes;
 
     /**
      * @var Collection<int, Relation>
      */
     #[ORM\OneToMany(targetEntity: Relation::class, mappedBy: 'abonnement', orphanRemoval: true)]
+    #[Groups(['user:read', 'user:write'])]
     private Collection $abonnements;
 
     public function __construct()

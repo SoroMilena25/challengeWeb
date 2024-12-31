@@ -9,8 +9,8 @@
     <!-- Conteneur pour la section de connexion -->
     <div class="connexion-section">
       <div class="container">
-        <h2>Inscription</h2>
-      <form @submit.prevent="handleSignup">
+        <h2 v-if="!isRegistered">Inscription</h2>
+        <form v-if="!isRegistered" @submit.prevent="handleSignup">
         <!-- Nom -->
         <div class="form-group">
           <label for="nom">Nom</label>
@@ -45,6 +45,10 @@
         <button type="submit">S'inscrire</button>
       </form>
 
+        <!-- Message de succès -->
+        <p v-if="isRegistered" class="success">{{ successMessage }}</p>
+        
+        <!-- Affichage des erreurs -->
         <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
       </div>
     </div>
@@ -53,21 +57,70 @@
 
 
 <script>
-  export default {
-    name: 'FormConnexion',
-    data() {
-      return {
-        email: '',
-        password: '',
+// J'ai ajouté l'import de la configuration Axios ici
+import api from '../axios'; // Assurez-vous que le chemin d'importation est correct pour ton projet
+
+export default {
+  name: 'FormConnexion',
+  data() {
+    return {
+      nom: '',               // Ajout des propriétés pour le formulaire
+      prenom: '',
+      pseudo: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      errorMessage: '',      // Message d'erreur à afficher si l'inscription échoue
+      successMessage: '',
+      isRegistered: false
+    };
+  },
+  methods: {
+    // Méthode d'inscription
+    async handleSignup() {
+      // Vérification de la correspondance des mots de passe
+      if (this.password !== this.confirmPassword) {
+        this.errorMessage = "Les mots de passe ne correspondent pas."; // Message d'erreur si les mots de passe ne correspondent pas
+        return;
+      }
+
+      // Création des données de l'utilisateur à envoyer
+      const userData = {
+        nom: this.nom,
+        prenom: this.prenom,
+        pseudo: this.pseudo,
+        email: this.email,
+        mdp: this.password, // Le champ 'mdp' correspond à la clé dans ton entité Symfony
       };
+
+      try {
+        // Envoi des données à l'API Symfony via Axios avec le bon Content-Type
+        const response = await api.post('/users', userData, {
+          headers: {
+            'Content-Type': 'application/ld+json', // Type de contenu attendu par l'API
+          }
+        });
+        console.log('Inscription réussie:', response.data);
+
+        // Réinitialiser les messages d'erreur et de succès
+        this.errorMessage = ''; 
+        this.successMessage = 'Inscription réussie, redirection en cours...';
+        this.isRegistered = true; // Inscription réussie, changer l'état
+
+        // Rediriger après 3 secondes
+        setTimeout(() => {
+          this.$router.push('/connexion'); // Redirection vers la page de connexion
+        }, 3000); // 3000 ms = 3 secondes
+
+      } catch (error) {
+        // Gestion des erreurs si l'inscription échoue
+        this.errorMessage = error.response ? error.response.data.message : "Erreur lors de l'inscription.";
+        console.error('Erreur lors de l\'inscription:', error);
+      }
     },
-    methods: {
-      handleLogin() {
-        console.log('Email:', this.email, 'Password:', this.password);
-      },
-    },
-  };
-  </script>
+  },
+};
+</script>
 
 <style scoped>
 .form-connexion {
