@@ -6,3 +6,7 @@ app_vue:
     controller: App\Controller\AppController::index
     requirements:
         vueRouting: .*
+api_login:
+  path: /login
+  controller: App\Controller\LoginController::login
+  methods: POST

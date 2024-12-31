@@ -59,6 +59,7 @@
 <script>
 // J'ai ajouté l'import de la configuration Axios ici
 import api from '../axios'; // Assurez-vous que le chemin d'importation est correct pour ton projet
+import CryptoJS from 'crypto-js';
 
 export default {
   name: 'FormConnexion',
@@ -84,13 +85,15 @@ export default {
         return;
       }
 
+      const hashedPassword = CryptoJS.SHA256(this.password).toString(CryptoJS.enc.Base64);
+
       // Création des données de l'utilisateur à envoyer
       const userData = {
         nom: this.nom,
         prenom: this.prenom,
         pseudo: this.pseudo,
         email: this.email,
-        mdp: this.password, // Le champ 'mdp' correspond à la clé dans ton entité Symfony
+        mdp: hashedPassword, // Le champ 'mdp' correspond à la clé dans ton entité Symfony
       };
 
       try {

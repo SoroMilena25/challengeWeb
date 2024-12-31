@@ -57,10 +57,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Doctrine\DBAL\Connection;
-
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\User;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class LoginController extends AbstractController
 {
+    /*
     private $connection;
 
     // Constructeur pour injecter la connexion à la base de données
@@ -70,6 +76,7 @@ class LoginController extends AbstractController
     }
 
     // Méthode pour gérer la connexion avec un formulaire classique
+    
     public function login(Request $request, SessionInterface $session)
     {
         // Récupérer les données envoyées par le formulaire
@@ -106,5 +113,50 @@ class LoginController extends AbstractController
 
         // Rediriger vers la page d'accueil après la déconnexion
         return new RedirectResponse('/');
+    }*/
+
+    private EntityManagerInterface $entityManager;
+    private UserPasswordHasherInterface $passwordHasher;
+    private $requestStack;
+
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, RequestStack $requestStack)
+    {
+        $this->entityManager = $entityManager;
+        $this->passwordHasher = $passwordHasher;
+        $this->requestStack = $requestStack;
+    }
+
+    #[Route('/login', name: 'api_login', methods: ['POST'])]
+    public function login(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $email = $data['email'] ?? null;
+        $password = $data['mdp'] ?? null;
+
+        if (!$email || !$password) {
+            return new JsonResponse(['error' => 'Email et mot de passe sont requis'], 400);
+        }
+
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
+
+        if (!$user) {
+            return new JsonResponse(['error' => 'Mauvais identifiants'], 401);
+        }
+
+        if ($this->passwordHasher->isPasswordValid($user, $password)) {
+            $session = $this->requestStack->getSession();
+            $session->set('user_id', $user->getId());
+
+            error_log('Session User ID: ' . $session->get('user_id'));
+            error_log('test_var: ' . $session->get('test_var'));
+
+            return new JsonResponse(['message' => 'Connexion réussie !', 'userId' => $user->getId()], 200);
+        }
+
+        else
+        {
+            return new JsonResponse(['error' => 'Mauvais identifiants'], 401);
+        }
     }
 }

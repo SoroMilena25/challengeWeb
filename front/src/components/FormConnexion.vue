@@ -58,13 +58,47 @@ export default {
       email: '',
       password: '',
       errorMessage: '',
+      successMessage: '',
+      isLoggedIn: false
     };
   },
   methods: {
-    handleSubmit(event) {
-      // Ici, vous ne gérez pas l'envoi en JSON, juste le formulaire classique
-      console.log('Formulaire envoyé avec email:', this.email, 'et mot de passe:', this.password);
-    }
+    async handleLogin() {
+      try {
+        if (!this.email || !this.password) {
+          this.errorMessage = 'Veuillez remplir tous les champs.';
+          return;
+        }
+
+        const response = await fetch('http://127.0.0.1:8000/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: this.email,
+            password: this.password,
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.message === 'Connexion réussie !') {
+            this.errorMessage = '';
+            this.successMessage = data.message;
+            this.isLoggedIn = true;
+            this.$router.push('/dashboard');
+          } else {
+            this.errorMessage = 'Une erreur lors de la connexion est survenue.';
+          }
+        } else {
+          const errorData = await response.json();
+          this.errorMessage = errorData.error || 'Adresse e-mail ou mot de passe incorrect.';
+        }
+      } catch (error) {
+        this.errorMessage = 'Une erreur inattendue est survenue.';
+      }
+    },
   }
 };
 </script>
