@@ -33,10 +33,10 @@
       <div class="d-flex">
         <!-- Lien vers la page Profil avec Vue Router -->
         <router-link to="/Messages">
-          <button type="button" class="btn btn-primary position-relative me-3">
+          <button type="button" class="btn btn-purple position-relative me-3">
             <img src="@/assets/send.svg" alt="Envoyer" />
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              99+
+              2+
               <span class="visually-hidden">message pas lu</span>
             </span>
           </button>
