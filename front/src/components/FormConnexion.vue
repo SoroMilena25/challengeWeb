@@ -81,6 +81,9 @@ export default {
           }),
         });
 
+        const textResponse = await response.text();
+        console.log(textResponse);
+
         if (response.ok) {
           const data = await response.json();
           if (data.message === 'Connexion réussie !') {
@@ -96,6 +99,7 @@ export default {
           this.errorMessage = errorData.error || 'Adresse e-mail ou mot de passe incorrect.';
         }
       } catch (error) {
+        console.error(error);
         this.errorMessage = 'Une erreur inattendue est survenue.';
       }
     },
